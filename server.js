@@ -12,6 +12,7 @@ const wordNotFoundMsg = "Word not found in the dictionary";
 const update = "update";
 const insert = "inserted";
 const dbCheck = "DB check result is ";
+const wordDeleted = "Word deleted successfully";
 const app = express();
 const port = 3000;
 let numbeOfRequests = 0;
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 // Create a new dictionary entry or update if the word exists
 app.post(definitionRoute, async (req, res) => {
   const newEntry = req.body;
-  
+
   if (await db.wordExists(newEntry.word)) {
     return res.status(200).json({
       message: wordExistsMsg,
@@ -71,7 +72,7 @@ app.get(wordDefinitionRoute, async (req, res) => {
 app.delete(wordDefinitionRoute, async (req, res) => {
   const wordToDelete = req.params.word;
   if (await db.deleteWord(wordToDelete)) {
-    res.status(200).json({ total: ++numbeOfRequests });
+    res.status(200).json({ message: wordDeleted, total: ++numbeOfRequests });
   } else {
     res.status(404).json({ message: wordNotFoundMsg, total: ++numbeOfRequests });
   }
@@ -88,11 +89,3 @@ app.get(getLanguageRoute , async (req, res) => {
 app.listen(port, () => {
   console.log(serverMsg + port);
 });
-
-function detectLanguage(text) {
-  const detectedLanguage = franc(text, { minLength: 3 });
-  console.log(detectedLanguage);
-  if (detectedLanguage === 'ara') return 'Arabic';
-  else if (detectedLanguage == 'eng') return 'English';
-  else return 'Not supported'
-}

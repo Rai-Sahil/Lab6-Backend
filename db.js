@@ -18,7 +18,6 @@ const resultLog = "results are: ";
 const log1 = "All languages already exist in the database. No languages added.";
 const log2 = "Word inserted successfully";
 const tableLog = "Table created";
-
 var con = mysql.createConnection({
     host: "sql3.freesqldatabase.com",
     user: "sql3659563",
