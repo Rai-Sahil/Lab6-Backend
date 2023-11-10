@@ -1,9 +1,9 @@
 const mysql = require('mysql');
 const databaseName = "dictionary";
-const tableName = "words";
+const tableName = "dict";
 const languageTableName = "language";
 // SQL queries
-const createTableQuery = `CREATE TABLE IF NOT EXISTS ${tableName} (word VARCHAR(255), definition VARCHAR(255), wordLanguage VARCHAR(255), definitionLanguage VARCHAR(255))`;
+const createTableQuery = `CREATE TABLE IF NOT EXISTS ${tableName} (word VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, definition VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, wordLanguage VARCHAR(255), definitionLanguage VARCHAR(255))`;
 const createTableLanguageQuery = `CREATE TABLE IF NOT EXISTS ${languageTableName} (language VARCHAR(255))`;
 const insertLanguageTableQuery = `INSERT INTO ${languageTableName} (language) VALUES ?`;
 const selectLanguageTableQuery = `SELECT language FROM ${languageTableName}`;
@@ -24,7 +24,8 @@ var con = mysql.createConnection({
     user: "sql3659563",
     password: "d8pH6dC9T6",
     database: "sql3659563",
-    port: 3306
+    port: 3306,
+    charset: 'utf8mb4',
 })
 
 function createTable() {

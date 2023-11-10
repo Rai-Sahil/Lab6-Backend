@@ -17,12 +17,13 @@ const port = 3000;
 let numbeOfRequests = 0;
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 
 // Create a new dictionary entry or update if the word exists
 app.post(definitionRoute, async (req, res) => {
   const newEntry = req.body;
-
+  
   if (await db.wordExists(newEntry.word)) {
     return res.status(200).json({
       message: wordExistsMsg,
@@ -36,7 +37,6 @@ app.post(definitionRoute, async (req, res) => {
 
   console.log(dbCheck + db.wordExists(newEntry.word));
 });
-
 
 // Handle the update when the user confirms
 app.patch(wordDefinitionRoute, (req, res) => {
@@ -88,3 +88,11 @@ app.get(getLanguageRoute , async (req, res) => {
 app.listen(port, () => {
   console.log(serverMsg + port);
 });
+
+function detectLanguage(text) {
+  const detectedLanguage = franc(text, { minLength: 3 });
+  console.log(detectedLanguage);
+  if (detectedLanguage === 'ara') return 'Arabic';
+  else if (detectedLanguage == 'eng') return 'English';
+  else return 'Not supported'
+}
