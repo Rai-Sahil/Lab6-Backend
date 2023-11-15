@@ -19,10 +19,10 @@ const log1 = "All languages already exist in the database. No languages added.";
 const log2 = "Word inserted successfully";
 const tableLog = "Table created";
 var con = mysql.createConnection({
-    host: "sql.freedb.tech",
-    user: "freedb_sahil_lab6_backend",
-    password: "w6xhnC82!VxfhU&",
-    database: "freedb_lab6_web",
+    host: "sql3.freesqldatabase.com",
+    user: "sql3662462",
+    password: "wpjagTmLXt",
+    database: "sql3662462",
     port: 3306,
     charset: 'utf8mb4',
 })
